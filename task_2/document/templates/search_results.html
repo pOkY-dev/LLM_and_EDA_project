@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+</head>
+
+<body>
+    <nav class="navbar is-dark">
+        <div class="navbar-brand">
+            <a href="{% url 'editor' %}" class="navbar-item">Notes</a>
+            <a href="{% url 'ask_question' %}" class="navbar-item">Ask</a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <a href="{% url 'editor' %}?docid=0" class="navbar-item">New document</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Ask a Question</h1>
+            <form method="post" action="{% url 'ask_question' %}" class="field">
+                {% csrf_token %}
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input class="input is-medium" type="text" name="question" placeholder="Ask a question">
+                    </div>
+                    <div class="control">
+                        <button class="button is-primary is-medium">Ask</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% if answer %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Answer</h1>
+            <div class="box">
+                <strong>Question:</strong> {{ question }}
+                <hr>
+                <strong>Answer:</strong> {{ answer }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="section">
+        <div class="container">
+            <a href="{% url 'editor' %}" class="button is-link">Go to Home Page</a>
+        </div>
+    </section>
+</body>
+</html>
